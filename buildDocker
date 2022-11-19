@@ -1,0 +1,12 @@
+#!/bin/bash
+
+NAME="dart_server_test"
+IMAGE="dart_server"
+VERSION="test"
+
+sed -i 's/dev/prod/' ./lib/config/env.dart
+
+docker rm --force ${NAME}
+docker rmi ${IMAGE}:${VERSION}
+docker build --no-cache -t ${IMAGE}:${VERSION} .
+docker run -d -it --name ${NAME} -p 8080:8080 -v ${NAME}:/server dart-server:test
