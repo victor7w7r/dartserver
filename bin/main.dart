@@ -1,19 +1,11 @@
-import 'package:fpdart/fpdart.dart' show Either;
-
 import 'package:shelf_cors_headers/shelf_cors_headers.dart';
-
 import 'package:shelf_plus/shelf_plus.dart';
 
-import 'package:dart_server/config/index.dart';
-import 'package:dart_server/utils/index.dart';
+import 'package:dart_server/config/env.dart';
 
 Future<Handler> initialize() async {
 
-  Either.tryCatch(setup, (_, __){}).getOrElse((_){});
-
-  await container.resolve<ServerConfig>().init();
-
-  final app = Router(notFoundHandler: notFound).plus;
+  final app = Router().plus;
 
   app.use(corsHeaders(headers: {
     ACCESS_CONTROL_ALLOW_ORIGIN: '*',
@@ -25,8 +17,6 @@ Future<Handler> initialize() async {
   }));
 
   app.use(setContentType('application/json'));
-  router(app);
-  routerOptions(app);
 
   return app;
 }
@@ -34,9 +24,5 @@ void main(List<String> args) => shelfRun(
   initialize,
   defaultBindAddress: '0.0.0.0',
   defaultEnableHotReload: Env.app == "dev",
-  onStarted: (_, port) =>
-    info("Listening in port $port",
-      lineLength: 40,
-      delay: 1
-    )
+  onStarted: (_, port) => print("Listening in port $port")
 );
