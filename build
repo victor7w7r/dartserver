@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sed -i 's/dev/prod/' ./lib/config/env.dart
+
+dart compile exe bin/main.dart -o bin/server
