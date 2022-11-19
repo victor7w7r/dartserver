@@ -2,4 +2,4 @@
 .packages
 bin/server
 bin/server.exe
-xma/
+server/
