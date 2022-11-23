@@ -1,7 +1,4 @@
-import 'package:fpdart/fpdart.dart' show Either;
-
 import 'package:shelf_cors_headers/shelf_cors_headers.dart';
-
 import 'package:shelf_plus/shelf_plus.dart';
 
 import 'package:dart_server/config/index.dart';
@@ -9,9 +6,9 @@ import 'package:dart_server/utils/index.dart';
 
 Future<Handler> initialize() async {
 
-  Either.tryCatch(setup, (_, __){}).getOrElse((_){});
+  if(!locator.isRegistered<ServerConfig>()) setup();
 
-  await container.resolve<ServerConfig>().init();
+  await locator.get<ServerConfig>().init();
 
   final app = Router(notFoundHandler: notFound).plus;
 

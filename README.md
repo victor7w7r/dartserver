@@ -51,7 +51,8 @@ $ git checkout blank
 - equatable: Helps to implement value based equality without needing to explicitly override == and hashCode.
 - fpdart: Functional programming in Dart and Flutter.
 - json_serializable: Automatically generate code for converting to and from JSON by annotating Dart classes.
-- kiwi: A simple yet efficient dependency injection container for Dart and Flutter.
+- getit: Simple direct Service Locator.
+- injectable: Injectable is a convenient code generator for get_it.
 - logger: Small, easy to use and extensible logger which prints beautiful logs.
 - sembast: NoSQL persistent embedded file system document-based database for Dart VM and Flutter.
 - shelf_cors_headers: CORS headers middleware for Shelf.

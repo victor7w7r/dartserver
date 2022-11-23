@@ -8,7 +8,7 @@ class FileOutput extends LogOutput {
 
   late File _file;
 
-  final _srv = container.resolve<ServerConfig>();
+  final _srv = locator.get<ServerConfig>();
 
   @override
   void init() {

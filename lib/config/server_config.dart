@@ -1,6 +1,7 @@
 import 'dart:io' show Directory, Platform;
 
 import 'package:fpdart/fpdart.dart' show Task;
+import 'package:injectable/injectable.dart' show lazySingleton;
 import 'package:sembast/sembast.dart' show Database;
 import 'package:sembast/sembast_io.dart' show databaseFactoryIo;
 import 'package:system_info2/system_info2.dart' show SysInfo;
@@ -9,6 +10,7 @@ import 'package:path/path.dart' as p;
 import 'package:dart_server/config/env.dart';
 import 'package:dart_server/utils/index.dart';
 
+@lazySingleton
 class ServerConfig {
 
   String logPath = Platform.isLinux && SysInfo.userId == "0"

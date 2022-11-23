@@ -1,11 +1,13 @@
 import 'dart:convert' show json;
 
-import 'package:dart_server/models/dummy.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart' show injectable;
 
 import 'package:dart_server/exceptions/index.dart';
 import 'package:dart_server/repository/dummy_repository.dart';
+import 'package:dart_server/models/dummy.dart';
 
+@injectable
 class DummyService {
 
   DummyService(this._dummyRepository);

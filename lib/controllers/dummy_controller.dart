@@ -1,11 +1,13 @@
 import 'dart:convert' show json;
 
 import 'package:fpdart/fpdart.dart' show Task;
+import 'package:injectable/injectable.dart' show injectable;
 import 'package:shelf_plus/shelf_plus.dart';
 
 import 'package:dart_server/services/dummy_service.dart';
 import 'package:dart_server/utils/index.dart';
 
+@injectable
 class DummyController {
 
   DummyController(this._dummyService);

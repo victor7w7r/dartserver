@@ -1,13 +1,15 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:injectable/injectable.dart' show Injectable;
 import 'package:sembast/sembast.dart';
 
 import 'package:dart_server/config/index.dart';
 import 'package:dart_server/repository/dummy_repository.dart';
 
+@Injectable(as: DummyRepository)
 class DummyData implements DummyRepository {
 
   final _store = stringMapStoreFactory.store('dummy');
-  final _db = container.resolve<ServerConfig>().dummyDb;
+  final _db = locator.get<ServerConfig>().dummyDb;
 
   @override
   findAll() => Task(() => _store.find(_db))
