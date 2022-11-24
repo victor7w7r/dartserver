@@ -12,7 +12,7 @@ Response notFound(Request req) {
   });
 }
 
-void router(RouterPlus app) {
+void dummyRouter(RouterPlus app) {
 
   final dummy = locator.get<DummyController>();
 
@@ -22,4 +22,7 @@ void router(RouterPlus app) {
   app.put('/dummy/<id>', dummy.replaceDummy, use: auth());
   app.delete('/dummy/<id>', dummy.deleteDummy, use: auth());
   app.delete('/dummy', dummy.deleteAllDummies, use: auth());
+
+  app.options('/dummy/<id>', () => Response.ok(null), use: auth());
+  app.options('/dummy', () => Response.ok(null), use: auth());
 }

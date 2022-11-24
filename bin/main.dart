@@ -1,14 +1,13 @@
 import 'package:shelf_cors_headers/shelf_cors_headers.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
+import 'package:dart_server/router/dummy_router.dart';
 import 'package:dart_server/config/index.dart';
 import 'package:dart_server/utils/index.dart';
 
 Future<Handler> initialize() async {
 
-  if(!locator.isRegistered<ServerConfig>()) setup();
-
-  await locator.get<ServerConfig>().init();
+  if(!locator.isRegistered<ServerConfig>()) await setup();
 
   final app = Router(notFoundHandler: notFound).plus;
 
@@ -22,8 +21,7 @@ Future<Handler> initialize() async {
   }));
 
   app.use(setContentType('application/json'));
-  router(app);
-  routerOptions(app);
+  dummyRouter(app);
 
   return app;
 }

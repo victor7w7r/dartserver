@@ -17,10 +17,10 @@ import 'package:injectable/injectable.dart' as _i2;
 /// ignore_for_file: lines_longer_than_80_chars
 extension GetItInjectableX on _i1.GetIt {
   /// initializes the registration of main-scope dependencies inside of [GetIt]
-  _i1.GetIt init({
+  Future<_i1.GetIt> init({
     String? environment,
     _i2.EnvironmentFilter? environmentFilter,
-  }) {
+  }) async {
     final gh = _i2.GetItHelper(
       this,
       environment,
@@ -29,7 +29,10 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i3.DummyRepository>(() => _i4.DummyData());
     gh.factory<_i5.DummyService>(
         () => _i5.DummyService(gh<_i3.DummyRepository>()));
-    gh.lazySingleton<_i6.ServerConfig>(() => _i6.ServerConfig());
+    await gh.singletonAsync<_i6.ServerConfig>(
+      () => _i6.ServerConfig.init(),
+      preResolve: true,
+    );
     gh.factory<_i7.DummyController>(
         () => _i7.DummyController(gh<_i5.DummyService>()));
     return this;
