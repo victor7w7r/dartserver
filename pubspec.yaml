@@ -3,7 +3,7 @@ description: A HTTP Dart Server Template
 version: 1.0.0
 
 environment:
-  sdk: ">=2.18.4 <3.0.0"
+  sdk: ">=2.18.5 <3.0.0"
 
 dependencies:
   shelf_cors_headers: ^0.1.4
