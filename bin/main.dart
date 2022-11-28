@@ -7,31 +7,34 @@ import 'package:dart_server/utils/index.dart';
 
 Future<Handler> initialize() async {
 
-  if(!locator.isRegistered<ServerConfig>()) await setup();
-
-  final app = Router(notFoundHandler: notFound).plus;
-
-  app.use(corsHeaders(headers: {
+  final app = Router(notFoundHandler: notFound).plus
+    ..use(corsHeaders(headers: {
     ACCESS_CONTROL_ALLOW_ORIGIN: '*',
     ACCESS_CONTROL_ALLOW_CREDENTIALS: 'true',
     ACCESS_CONTROL_ALLOW_METHODS: 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
     ACCESS_CONTROL_ALLOW_HEADERS: 'Origin,Content-Type,Authorization,locale,x-api-key',
     ACCESS_CONTROL_MAX_AGE: '86400',
     'Content-Type': 'application/json;charset=utf-8'
-  }));
+  }))
+    ..use(setContentType('application/json'));
 
-  app.use(setContentType('application/json'));
   dummyRouter(app);
 
   return app;
 }
-void main(List<String> args) => shelfRun(
-  initialize,
-  defaultBindAddress: '0.0.0.0',
-  defaultEnableHotReload: Env.app == "dev",
-  onStarted: (_, port) =>
-    info("Listening in port $port",
-      lineLength: 40,
-      delay: 1
-    )
-);
+Future<void> main(List<String> args) async {
+
+  await setup();
+
+  shelfRun(
+    initialize,
+    defaultBindAddress: '0.0.0.0',
+    defaultEnableHotReload: Env.app == "dev",
+    onStarted: (_, port) =>
+      info("Listening in port $port",
+        lineLength: 40,
+        delay: 1
+      )
+  );
+
+}

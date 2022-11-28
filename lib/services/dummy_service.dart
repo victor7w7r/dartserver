@@ -34,8 +34,8 @@ class DummyService {
             .map((res) => res.getOrElse(() => {})
             .isEmpty
               ? map
-              : throw IDExistsOrFormatContentException('This id already exists', true
-          )).run()
+              : throw IDExistsOrFormatContentException('This id already exists', true)
+            ).run()
         : throw IDExistsOrFormatContentException('The format of this dummy item is incorrect or their fields are empty', false))
       .run,
     (e, _) => e as IDExistsOrFormatContentException
@@ -46,8 +46,8 @@ class DummyService {
       .map((map) async => validate(map)
         ? Task(_dummyRepository.replace(map, id).run).map((res) => res.isSome()
             ? map
-            : throw NotFoundOrFormatContentException('This dummy object is not found with id $id', true
-          )).run()
+            : throw NotFoundOrFormatContentException('This dummy object is not found with id $id', true)
+          ).run()
         : throw NotFoundOrFormatContentException('The format of this dummy item is incorrect or their fields are empty', false))
       .run,
     (e, _) => e as NotFoundOrFormatContentException

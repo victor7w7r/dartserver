@@ -7,9 +7,14 @@ Middleware auth() => (innerHandler) => (request) async {
 
   final apiKey = request.headers['x-api-key'];
   if((apiKey == null || apiKey != Env.key) && Env.app == "prod") {
-    wtf("[401] ${request.requestedUri} 'Not Authorized", lineLength: 60);
-    return Response(401, body: errorFormat("Not Authorized"), headers: {'Content-Type': 'application/json'});
+    wtf("[401] ${request.requestedUri} 'No autorizado", lineLength: 60);
+    return Response(
+      401,
+      body: errorFormat("No autorizado"),
+      headers: {'Content-Type': 'application/json'}
+    );
   }
-  return Future.sync(() => innerHandler(request)).then((response) => response);
+  return Future.sync(() => innerHandler(request))
+    .then((response) => response);
 
 };
