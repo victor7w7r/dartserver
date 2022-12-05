@@ -16,7 +16,7 @@ class ServerConfig {
   String logPath = "";
   String dbPath = "";
   String logFileName = "";
-  late Database dummyDb;
+  late final Database dummyDb;
 
   @FactoryMethod(preResolve: true)
   static Future<ServerConfig> init() async {
