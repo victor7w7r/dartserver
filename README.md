@@ -50,6 +50,7 @@ $ git checkout blank
 - encrypt: IA set of high-level APIs over PointyCastle for two-way cryptography. (Used for encrypt database)
 - equatable: Helps to implement value based equality without needing to explicitly override == and hashCode.
 - fpdart: Functional programming in Dart and Flutter.
+- freezed: Code generation for immutable classes.
 - json_serializable: Automatically generate code for converting to and from JSON by annotating Dart classes.
 - getit: Simple direct Service Locator.
 - injectable: Injectable is a convenient code generator for get_it.

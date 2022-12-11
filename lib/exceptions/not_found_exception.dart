@@ -1,4 +1,10 @@
 class NotFoundException implements Exception {
-  NotFoundException(this.message);
+
+  const NotFoundException(this.message);
+
+  factory NotFoundException.dummy(String id) =>
+    NotFoundException('This dummy is not found with id $id');
+
   final String message;
+
 }

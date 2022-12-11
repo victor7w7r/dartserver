@@ -1,16 +1,13 @@
-import 'package:json_annotation/json_annotation.dart' show JsonSerializable;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part '../generated/models/dummy.freezed.dart';
 part '../generated/models/dummy.g.dart';
 
-@JsonSerializable()
-class Dummy {
+@freezed
+class Dummy with _$Dummy {
 
-  const Dummy(this.id, this.name);
-
-  final String id;
-  final String name;
+  const factory Dummy(String id, String name) = _Dummy;
 
   factory Dummy.fromJson(Map<String, dynamic> json) => _$DummyFromJson(json);
-  Map<String, dynamic> toJson() => _$DummyToJson(this);
 
 }

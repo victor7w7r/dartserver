@@ -22,23 +22,25 @@ class DummyService {
     Task(_dummyRepository.findById(id).run)
       .map((res) => res.isSome()
         ? json.encode(res.getOrElse(()=>{}))
-        : throw NotFoundException('This dummy is not found with id $id'))
+        : throw NotFoundException.dummy(id))
       .run,
-    (e, _) => NotFoundException('This dummy is not found with id $id')
+    (e, _) => NotFoundException.dummy(id)
   );
 
-    TaskEither<IDExistsOrFormatContentException, Map<String, Object?>> save(String dummy) => TaskEither.tryCatch(
+  TaskEither<IDExistsOrFormatContentException, Map<String, Object?>> save(String dummy) => TaskEither.tryCatch(
     IO(() => json.decode(dummy) as Map<String, dynamic>)
       .map((map) async => validate(map)
         ? Task(_dummyRepository.saveNullCheck(map).run)
             .map((res) => res.getOrElse(() => {})
             .isEmpty
               ? map
-              : throw IDExistsOrFormatContentException('This id already exists', true)
+              : throw IDExistsOrFormatContentException.idExists()
             ).run()
-        : throw IDExistsOrFormatContentException('The format of this dummy item is incorrect or their fields are empty', false))
+        : throw IDExistsOrFormatContentException.formatError())
       .run,
-    (e, _) => e as IDExistsOrFormatContentException
+    (e, _) => e is FormatException
+      ? IDExistsOrFormatContentException.formatError()
+      : IDExistsOrFormatContentException.idExists()
   );
 
   TaskEither<NotFoundOrFormatContentException, Map<String, Object?>> replace(String dummy, String id) => TaskEither.tryCatch(
@@ -46,20 +48,22 @@ class DummyService {
       .map((map) async => validate(map)
         ? Task(_dummyRepository.replace(map, id).run).map((res) => res.isSome()
             ? map
-            : throw NotFoundOrFormatContentException('This dummy object is not found with id $id', true)
+            : throw NotFoundOrFormatContentException.notFound(id)
           ).run()
-        : throw NotFoundOrFormatContentException('The format of this dummy item is incorrect or their fields are empty', false))
+        : throw NotFoundOrFormatContentException.formatError())
       .run,
-    (e, _) => e as NotFoundOrFormatContentException
+    (e, _) => e is FormatException
+      ? NotFoundOrFormatContentException.formatError()
+      : NotFoundOrFormatContentException.notFound(id)
   );
 
   TaskEither<NotFoundException, String> delete(String id) => TaskEither.tryCatch(
     Task(_dummyRepository.delete(id).run)
       .map((res) => res.isNone()
-        ? throw NotFoundException('This dummy is not found with id $id')
+        ? throw NotFoundException.dummy(id)
         : '')
       .run,
-    (e, _) => NotFoundException('This dummy is not found with id $id')
+    (e, _) => NotFoundException.dummy(id)
   );
 
   Task<void> deleteAll() => _dummyRepository.deleteAll();

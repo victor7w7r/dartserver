@@ -1,4 +1,6 @@
 class FileNotFoundException implements Exception {
-  FileNotFoundException(this.message);
+
+  const FileNotFoundException(this.message);
+
   final String message;
 }

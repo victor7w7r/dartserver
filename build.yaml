@@ -10,3 +10,11 @@ targets:
         options:
           build_extensions:
             '^lib/{{}}.dart': 'lib/generated/{{}}.g.dart'
+      freezed:
+        enabled: true
+        generate_for:
+          include:
+            - lib/models/**.dart
+        options:
+          build_extensions:
+            '^lib/models/{{}}.dart': 'lib/generated/models/{{}}.freezed.dart'
