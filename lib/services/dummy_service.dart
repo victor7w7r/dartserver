@@ -10,7 +10,7 @@ import 'package:dart_server/models/dummy.dart';
 @injectable
 class DummyService {
 
-  DummyService(this._dummyRepository);
+  const DummyService(this._dummyRepository);
 
   final DummyRepository _dummyRepository;
 

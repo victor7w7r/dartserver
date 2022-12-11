@@ -10,7 +10,7 @@ import 'package:dart_server/utils/index.dart';
 @injectable
 class DummyController {
 
-  DummyController(this._dummyService);
+  const DummyController(this._dummyService);
 
   final DummyService _dummyService;
 
