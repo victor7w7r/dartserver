@@ -91,7 +91,7 @@ packages:
       name: mime
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   mime_type:
     dependency: transitive
     description:
@@ -105,7 +105,7 @@ packages:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.2"
+    version: "1.8.3"
   shelf:
     dependency: transitive
     description:
