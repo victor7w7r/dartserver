@@ -18,29 +18,30 @@ class DummyData implements DummyRepository {
 
   @override
   findById(id) => TaskOption(() async =>
-    Option.fromNullable(await _store.record(id).get(_db))
+    (await _store.record(id).get(_db)).toOption()
   );
+
 
   @override
   saveNullCheck(part) => findById(part['id']).orElse(() =>
-    TaskOption(() async => Option.fromNullable(
-      await _store.record(part['id']).put(_db, part)
-    ).map((t) => {}))
+    TaskOption(() async =>
+      (await _store.record(part['id']).put(_db, part)).toOption()
+    .map((t) => {}))
   );
 
   @override
   replace(part, id) => findById(id).andThen(() =>
-    TaskOption(() async => Option.fromNullable(
-      await _store.record(id).put(_db, part)
-    ))
+    TaskOption(() async =>
+      (await _store.record(id).put(_db, part)).toOption()
+    )
   );
 
 
   @override
   delete(id) => findById(id).andThen(() =>
-    TaskOption(() async => Option.fromNullable(
-      await _store.record(id).delete(_db)
-    ))
+    TaskOption(() async =>
+      (await _store.record(id).delete(_db)).toOption()
+    )
   );
 
   @override
