@@ -30,7 +30,7 @@ DELETE http://localhost:8080/dummy
 }
 ```
 
-### Install Packages (SDK >= 2.18.4)
+### Install Packages (SDK >= 2.18.6)
 
 ``` bash
 $ dart pub get
